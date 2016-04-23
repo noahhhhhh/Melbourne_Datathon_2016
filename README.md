@@ -1,4 +1,7 @@
 # Melbourne_Datathon_2016
+SEEK data
+
+# kaggle
 This is the home of the predictive modelling component of the 2016 Melbourne Datathon.
 
 The objective is to predict if a job is in the 'Hotel and Tourism' category.
@@ -11,7 +14,6 @@ The prediction can be a  1/0 or a continuous number representing a probability o
 
 Example code in R and SQL to generate the Barista benchmark will be on the data provided, and Python code will also be made available.
 
-# kaggle
 ## findings
 - important info also lies in raw_job_type: some adds put role desc in raw_job_type
 
