@@ -1,5 +1,4 @@
 # Melbourne_Datathon_2016
-2nd Melbourne Datathon
 This is the home of the predictive modelling component of the 2016 Melbourne Datathon.
 
 The objective is to predict if a job is in the 'Hotel and Tourism' category.
