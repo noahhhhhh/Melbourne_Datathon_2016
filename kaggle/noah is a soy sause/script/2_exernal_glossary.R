@@ -63,16 +63,44 @@ glossary.2 <- tolower(glossary.2)
 #####################################
 ## Travel and tourism glossary.pdf ##
 #####################################
+## read
+if(all(file.exists(Sys.which(c("pdfinfo", "pdftotext"))))) {
+    pdf <- readPDF(control = list(text = "-layout"))(elem = list(uri = pdf.path.full[3]),
+                                                     language = "en",
+                                                     id = "id1")
+    content(pdf)[1:13]
+}
 
+## convert to txt obj
+doc.pdf <- content(pdf)
 
+## position of "  "
+pos <- regexpr("  ", doc.pdf)
+glossary.3 <- c(substr(doc.pdf, 1, pos - 1)[substr(doc.pdf, 1, pos - 1) != ""]
+                , doc.pdf[!grepl("  ", doc.pdf) & nchar(doc.pdf) != 0])
 
+## remove item 128
+glossary.3 <- glossary.3[-128]
 
+## remove "\f"
+glossary.3 <- gsub("\\f", "", glossary.3)
 
+## to lower
+glossary.3 <- tolower(glossary.3)
 
+## split
+# ()
+glossary.3 <- unlist(str_split(glossary.3, " \\("))
+glossary.3 <- gsub("\\)", "", glossary.3)
+glossary.3 <- gsub("\\(", "", glossary.3)
+glossary.3 <- glossary.3[glossary.3 != ""]
 
+###########
+## merge ##
+###########
+glossary <- c(glossary.1, glossary.2, glossary.3)
+glossary <- unique(glossary)
 
-
-
-
+save(glossary, file = "../../../data/RData/dt_glossary.RData")
 
 

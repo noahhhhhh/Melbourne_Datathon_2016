@@ -32,6 +32,9 @@ dt.jobs[hat != -1] %>%
 #######################################################################################
 ## 3.0 clean ##########################################################################
 #######################################################################################
+dt.jobs[title := iconv(dt.jobs$title, "ISO_8859-2", "UTF-8")]
+dt.jobs[abstract := iconv(dt.jobs$abstract, "ISO_8859-2", "UTF-8")]
+dt.jobs[raw_job_type := iconv(dt.jobs$raw_job_type, "ISO_8859-2", "UTF-8")]
 ## Segment
 dt.jobs[, Segment := ifelse(dt.jobs$Segment == "-1.0", "-1"
                             , ifelse(dt.jobs$Segment == "Unknown", "-10"
