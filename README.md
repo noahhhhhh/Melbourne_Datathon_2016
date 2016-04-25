@@ -18,8 +18,16 @@ Example code in R and SQL to generate the Barista benchmark will be on the data 
 - important info also lies in raw_job_type: some adds put role desc in raw_job_type
 
 ## todo
-- find popular keywords in title, abstract, raw_job_type, for hat == 1
-- filter out some irrelavant word
 - try 2 grams and filter out some
-- feature engineering
-- train
+- location
+- feature hashing, FA, PCA
+- unsupervised (kmeans, tnse)
+- try different models (knn, vw, lr, nn, rf, et, etc.)
+
+## features
+- 1-gram of title, abstract, and raw_job_type
+- log_salary_min, log_salary_max, log_salary_mean, log_salary_diff -> all scaled
+- salary_type -> dummied
+
+## models
+- xgb (objective = "binary:logistic", max_depth = 6, subsample = .8, colsample_bylevel = .4, eta = .2)
