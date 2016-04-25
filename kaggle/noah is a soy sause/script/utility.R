@@ -54,7 +54,7 @@ txtPreprocess <- function(x, rm_sparse = 1){
 
 # require(slam)
 # cat("stemming ...\n")
-# x <- wordStem(raw_job_type.hat.all)
+# x <- wordStem(abstract.hat.test)
 # cat("removing punctuations and digits ...\n")
 # x <- gsub("[[:punct:][:digit:]]", " ", x)
 # cat("removing more than 2 space ...\n")
@@ -76,23 +76,31 @@ txtPreprocess <- function(x, rm_sparse = 1){
 #                  mc.cores = 1)
 # dtm.x <- DocumentTermMatrix(corp.x, control = list(minWordLength = 2, minDocFreq = 3))
 # 
-# dt.x <- as.data.table(data.frame(text = unlist(sapply(corp.x, `[`, "content")), stringsAsFactors = F))
+# # dt.x <- as.data.table(data.frame(text = unlist(sapply(corp.x, `[`, "content")), stringsAsFactors = F))
 # 
-# dtm.x.x <- removeSparseTerms(dtm.x, .999)
-# cat("Creating data table (dt) ...\n")
-# dt.x <- data.table(text = unlist(sapply(corp.x, `[`, "content")))
+# # dtm.x.x <- removeSparseTerms(dtm.x, .999)
+# # cat("Creating data table (dt) ...\n")
+# # dt.x <- data.table(text = unlist(sapply(corp.x, `[`, "content")))
+# # 
+# # ## freq
+# # freq.x <- col_sums(as.matrix(dtm.x.x), na.rm = T)
+# # length(freq.x); length(x)
+# # 
+# # # order by frequency
+# # ord.x <- order(-freq.x)
+# # cat("head word frequency:]n")
+# # print(head(freq.x[ord.x]))
+# # 
+# # cat("Creating word-frequency data table (dt.wf) ...\n")
+# # dt.wf.x <- data.table(word = names(freq.x), freq = freq.x)[order(-freq.x)]
+# # dt.wf.x
 # 
-# ## freq
-# freq.x <- col_sums(as.matrix(dtm.x.x), na.rm = T)
-# length(freq.x); length(x)
+# # list.raw_job_type.hat.all <- list(dt = dt.x, dtm = dtm.x, dt.wf = dt.wf.x)
+# dtm.abstract.test <- dtm.x # orignial 56.MB
+# object.size(dtm.abstract.test)
+# save(dtm.abstract.test, file = "dtm_abstract_test.RData")
 # 
-# # order by frequency
-# ord.x <- order(-freq.x)
-# cat("head word frequency:]n")
-# print(head(freq.x[ord.x]))
 # 
-# cat("Creating word-frequency data table (dt.wf) ...\n")
-# dt.wf.x <- data.table(word = names(freq.x), freq = freq.x)[order(-freq.x)]
-# dt.wf.x
-# 
-# list.raw_job_tyype.hat.all <- list(dt = dt.x, dtm = dtm.x, dt.wf = dt.wf.x)
+# length(setdiff(dtm.abstract.all$dimnames$Terms, dtm.abstract.hat.test$dimnames$Terms))
+# length(dtm.abstract.hat.test$dimnames$Terms)
+# length(dtm.abstract.all$dimnames$Terms)
