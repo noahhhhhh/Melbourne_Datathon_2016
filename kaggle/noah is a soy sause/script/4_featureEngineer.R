@@ -1,4 +1,4 @@
-# setwd("/Volumes/Data Science/Google Drive/data_science_competition/melbourne_datathon_2nd/Melbourne_Datathon_2016/kaggle/noah is a soy sause/")
+setwd("/Volumes/Data Science/Google Drive/data_science_competition/melbourne_datathon_2nd/Melbourne_Datathon_2016/kaggle/noah is a soy sause/")
 rm(list = ls()); gc();
 require(data.table)
 require(tm)
@@ -8,7 +8,7 @@ require(parallel)
 require(Matrix)
 require(ggplot2)
 source("utility.R")
-load("dt_jobs.RData")
+load("../../../data/RData/dt_jobs.RData")
 load("dt_keywords_hat_test.RData")
 load("dt_keywords_hat_all.RData")
 #######################################################################################
