@@ -20,9 +20,12 @@ Example code in R and SQL to generate the Barista benchmark will be on the data 
 ## todo
 - try 2 grams and filter out some
 - location
+- company names
+- count of top grams for hat == 1
 - feature hashing, FA, PCA
 - unsupervised (kmeans, tnse)
 - try different models (knn, vw, lr, nn, rf, et, etc.)
+- try gblinear
 
 ## features
 - 1-gram of title, abstract, and raw_job_type
