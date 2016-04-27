@@ -14,18 +14,19 @@ require(caTools)
 source("utility.R")
 load("dt_jobs.RData")
 # load("sm_title_all_useTest2.RData")
-load("sm_all_useTest2.RData")
+# load("sm_all_useTest2.RData")
+load("sm_all_useTest2_withLoc.RData")
 #######################################################################################
 ## train, valid, test #################################################################
 #######################################################################################
 set.seed(888)
 ind.train <- createDataPartition(dt.jobs[hat >= 0]$hat, p = .8, list = F)
 ind.train <- as.numeric(ind.train)
-sm.train.all <- sm.all.useTest2[dt.jobs$hat >= 0, ][ind.train, ]
+sm.train.all <- sm.all.useTest2.withLoc[dt.jobs$hat >= 0, ][ind.train, ]
 y.train.all <- dt.jobs$hat[dt.jobs$hat >= 0][ind.train]
-sm.valid.all <- sm.all.useTest2[dt.jobs$hat >= 0, ][-ind.train, ]
+sm.valid.all <- sm.all.useTest2.withLoc[dt.jobs$hat >= 0, ][-ind.train, ]
 y.valid.all <- dt.jobs$hat[dt.jobs$hat >= 0][-ind.train]
-sm.test.all <- sm.all.useTest2[dt.jobs$hat < 0, ]
+sm.test.all <- sm.all.useTest2.withLoc[dt.jobs$hat < 0, ]
 
 dim(sm.train.all); dim(sm.valid.all); dim(sm.test.all);
 length(y.train.all); length(y.valid.all)
@@ -65,14 +66,14 @@ score.valid <- 2 * as.numeric(colAUC(pred.valid, as.numeric(y.valid.all))) - 1
 print(paste("gini valid:", score.valid))
 # gini: .965, raw params, with only salary and title
 # gini: 0.983508726941559, raw params, with salary and all
-
+# gini: 0.983929820103408
 #######################################################################################
 ## sbmit ##############################################################################
 #######################################################################################
 pred.test <- predict(md.xgb, dmx.test)
 submit <- data.table(job_id = dt.jobs[dt.jobs$hat < 0]$job_id, hat = pred.test)
 write.csv(submit, file = "submission/1_single_xgb_raw_params_salary_all_1_gram.csv", row.names = F, quote = F)
-
+# gini: 0.98337, raw params, with salary and all
 
 
 
