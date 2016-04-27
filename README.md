@@ -31,6 +31,7 @@ Example code in R and SQL to generate the Barista benchmark will be on the data 
 - 1-gram of title, abstract, and raw_job_type
 - log_salary_min, log_salary_max, log_salary_mean, log_salary_diff -> all scaled
 - salary_type -> dummied
+- location (city, state, lat, lng, fcl, fcode, rot_45/30/50_x/y, radial_r)
 
 ## models
 - xgb (objective = "binary:logistic", max_depth = 6, subsample = .8, colsample_bylevel = .4, eta = .2)
