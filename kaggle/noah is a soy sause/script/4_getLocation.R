@@ -1,7 +1,5 @@
-# setwd("/Volumes/Data Science/Google Drive/data_science_competition/melbourne_datathon_2nd/Melbourne_Datathon_2016/kaggle/noah is a soy sause/")
-rm(list = ls()); gc();
-require(data.table)
 require(XML)
+<<<<<<< HEAD
 require(caret)
 load("dt_jobs.RData")
 #######################################################################################
@@ -86,11 +84,24 @@ load("dt_zip.RData")
 load("dt_g_id.RData")
 load("dt_location_id.RData")
 
+=======
+setwd("../Desktop")
+load("dt_g_id.RData")
+load("dt_zip.RData")
+load("dt_location_id.RData")
+require(data.table)
+dt.location_id
+dt.g_id
+dt.zip
+
+
+>>>>>>> ce3fe2ddf73e6bd813be6f26fd94085dc10afdf7
 ## refine the dt.zip
 dt.zip
 ls.xml.zip <- list()
 z <- 1
 for(loc in dt.zip$loc_name){
+<<<<<<< HEAD
     path.zip <- paste0("http://api.geonames.org/search?name=", loc, "&country=AU&maxRows=1&username=noahhhhhh")
     xml.zip <- xmlParse(path.zip)
     ls.xml.zip[[loc]] <- xmlToList(xml.zip)
@@ -115,12 +126,21 @@ for(zip in 1:nrow(dt.zip)){
     i <- i + 1
 }
 dt.zip2 <- dt.zip2[-1]
+=======
+  path.zip <- paste0("http://api.geonames.org/search?name=", loc, "&country=AU&maxRows=1&username=noahhhhhh")
+  xml.zip <- xmlParse(path.zip)
+  ls.xml.zip[[loc]] <- xmlToList(xml.zip)
+  print(paste(z, "in", nrow(dt.zip)))
+}
+
+>>>>>>> ce3fe2ddf73e6bd813be6f26fd94085dc10afdf7
 
 ## refine the dt.g_id
 dt.g_id
 ls.xml.g_id <- list()
 g <- 1
 for(loc in substr(dt.g_id$location_id, 6, nchar(dt.g_id$location_id))){
+<<<<<<< HEAD
     path.g_id <- paste0("http://api.geonames.org/get?geonameId=", loc, "&username=noahhhhhh")
     xml.g_id<- xmlParse(path.g_id)
     ls.xml.g_id[[loc]] <- xmlToList(xml.g_id)
@@ -319,4 +339,12 @@ save(smm.location, file = "smmlocation.RData")
 #                     , sort = F))
 
 
+=======
+  path.g_id <- paste0("http://api.geonames.org/get?geonameId=", loc, "&username=noahhhhhh")
+  xml.g_id<- xmlParse(path.g_id)
+  ls.xml.g_id[[loc]] <- xmlToList(xml.g_id)
+  print(paste(g, "in", nrow(dt.g_id)))
+  g <- g + 1
+}
+>>>>>>> ce3fe2ddf73e6bd813be6f26fd94085dc10afdf7
 
