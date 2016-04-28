@@ -23,6 +23,7 @@ Example code in R and SQL to generate the Barista benchmark will be on the data 
 - company names
 - duplicated rows (done, no use)
 - merge title and abstract together (done, no use)
+- nchar of title and abstract
 - collaborative filtering via user_id from search and impression
 - count of users who searched for hat in train set
 - count of top grams for hat == 1 (done, no use)
