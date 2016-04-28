@@ -38,6 +38,8 @@ Example code in R and SQL to generate the Barista benchmark will be on the data 
 - salary_type -> dummied
 - location (city, state, lat, lng, fcl, fcode, rot_45/30/50_x/y, radial_r)
 - count of most likely words (performance not good)
+- is.dup (performance not good)
+- combined title and abstract (performance not good)
 
 ## models
 - xgb (objective = "binary:logistic", max_depth = 6, subsample = .8, colsample_bylevel = .4, eta = .2)
