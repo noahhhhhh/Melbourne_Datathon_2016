@@ -21,7 +21,7 @@ Example code in R and SQL to generate the Barista benchmark will be on the data 
 - try 2 grams and filter out some
 - location (done)
 - company names
-- merge title and abstract together
+- merge title and abstract together (no use)
 - collaborative filtering via user_id from search and impression
 - count of users who searched for hat in train set
 - count of top grams for hat == 1 
