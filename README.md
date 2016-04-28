@@ -29,7 +29,7 @@ Example code in R and SQL to generate the Barista benchmark will be on the data 
 - count of top grams for hat == 1 (done, no use)
 - feature hashing, FA, PCA
 - unsupervised (kmeans, tnse)
-- try different models (knn, vw, lr, nn, rf, et, etc.)
+- try different models (knn, sparsenn*, vw*, glmnet*, nn, rf, et, etc.)
 - try gblinear
 
 ## features
