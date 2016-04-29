@@ -19,6 +19,7 @@ Example code in R and SQL to generate the Barista benchmark will be on the data 
 
 ## todo
 - try 2 grams and filter out some
+- modify stemming for 1 and 2 grams!!!!!!!!!!!!!!!
 - location (done)
 - company names
 - duplicated rows (done, no use)
