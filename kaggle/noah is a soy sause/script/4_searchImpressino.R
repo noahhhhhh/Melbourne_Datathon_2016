@@ -1,0 +1,5 @@
+require(data.table)
+dt.searches <- fread("../../../data/MelbourneDatathon2016/all/job_searches_all_V2.csv")
+dt.impressions <- fread("../../../data/MelbourneDatathon2016/all/job_impressions_all_V2.csv")
+dt.clicks <- fread("../../../data/MelbourneDatathon2016/all/job_clicks_all_V2.csv")
+load("../../../data/RData/dt_jobs.RData")
