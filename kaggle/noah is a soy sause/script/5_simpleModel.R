@@ -50,7 +50,7 @@ params <- list(booster = "gbtree"
                , nthread = 8
                , objective = "binary:logistic"
                , eval_metric = "auc"
-               , max_depth = 16
+               , max_depth = 10
                , subsample = .9
                , colsample_bylevel = .4
                , eta = .2
@@ -76,15 +76,16 @@ print(paste("gini valid:", score.valid))
 # gini: 0.98351530762602, raw params, with salary and location (removed city) and all (combined title and abstract)
 # gini: 0.983487490729311, raw params, with salary and location and all (combined title and abstract)
 # gini: 0.982878664753845, raw params, with salary and location and is.dup and all
+# gini: 0.986772942217905, 16 md, with salary and location and 1 and 2 gram all
 
 #######################################################################################
 ## sbmit ##############################################################################
 #######################################################################################
 pred.test <- predict(md.xgb, dmx.test)
 submit <- data.table(job_id = dt.jobs[dt.jobs$hat < 0]$job_id, hat = pred.test)
-write.csv(submit, file = "submission/1_single_xgb_raw_params_salary_all_1_gram.csv", row.names = F, quote = F)
+write.csv(submit, file = "submission/6_single_xgb_md_16_salary_all_1_and_2_gram_modified_stem.csv", row.names = F, quote = F)
 # gini: 0.98337, raw params, with salary and all
-
+# gini: 0.98658, 16 md, with salary and location and 1 and 2 gram all
 
 
 
