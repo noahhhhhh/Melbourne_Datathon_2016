@@ -44,4 +44,4 @@ Example code in R and SQL to generate the Barista benchmark will be on the data 
 - 2-gram of title, abstract, and raw_job_type
 
 ## models
-- xgb (objective = "binary:logistic", max_depth = 16, subsample = .9, colsample_bylevel = .4, eta = .2)
+- xgb (objective = "binary:logistic", max_depth = 24, subsample = .9, colsample_bylevel = .4, eta = .2)
