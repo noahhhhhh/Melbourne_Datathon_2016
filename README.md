@@ -18,8 +18,8 @@ Example code in R and SQL to generate the Barista benchmark will be on the data 
 - important info also lies in raw_job_type: some adds put role desc in raw_job_type
 
 ## todo
-- try 2 grams and filter out some
-- modify stemming for 1 and 2 grams!!!!!!!!!!!!!!!
+- try 2 grams and filter out some (done, all 2 grams are good with 1 gram)
+- modify stemming for 1 and 2 grams!!!!!!!!!!!!!!! (done good)
 - location (done)
 - company names
 - duplicated rows (done, no use)
@@ -32,16 +32,15 @@ Example code in R and SQL to generate the Barista benchmark will be on the data 
 - unsupervised (kmeans, tnse)
 - try different models (knn, sparsenn*, vw*, glmnet*, nn, rf, et, etc.)
 - try gblinear
+- try 3 grams
+- try predict class and treat the output as input to predict hat
 
 ## features
 - 1-gram of title, abstract, and raw_job_type
 - log_salary_min, log_salary_max, log_salary_mean, log_salary_diff -> all scaled
 - salary_type -> dummied
 - location (city, state, lat, lng, fcl, fcode, rot_45/30/50_x/y, radial_r)
-- count of most likely words (performance not good)
-- is.dup (performance not good)
-- combined title and abstract (performance not good)
 - 2-gram of title, abstract, and raw_job_type
 
 ## models
-- xgb (objective = "binary:logistic", max_depth = 24, subsample = .9, colsample_bylevel = .4, eta = .2)
+- xgb on full train (objective = "binary:logistic", min_child_weight = 10, max_depth = 20, subsample = .9, colsample_bylevel = .4, eta = .2)
