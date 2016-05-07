@@ -1,12 +1,12 @@
-setwd("/Volumes/Data Science/Google Drive/data_science_competition/melbourne_datathon_2nd/Melbourne_Datathon_2016/kaggle/noah is a soy sause/")
+# setwd("/Volumes/Data Science/Google Drive/data_science_competition/melbourne_datathon_2nd/Melbourne_Datathon_2016/kaggle/noah is a soy sause/")
 rm(list = ls()); gc();
 require(data.table)
 require(tm)
 require(SnowballC)
 require(stringr)
 require(ggplot2)
-source("script/utility.R")
-load("../../../data/RData/dt_jobs.RData")
+source("utility.R")
+load("dt_jobs.RData")
 #######################################################################################
 ## hat = 1 ############################################################################
 #######################################################################################
@@ -111,7 +111,8 @@ p <- p + theme(axis.text.x=element_text(angle = 45, hjust = 1))
 p
 
 ## save
-save(list.title.hat.all, list.abstract.hat.all, list.raw_job_type.hat.all, file = "../../../data/RData/dt_keywords_hat_all.RData")
+# save(list.raw_job_type.hat.all, file = "dt_row_job_type_hat_all.RData")
+save(list.title.hat.all, list.abstract.hat.all, list.raw_job_type.hat.all, file = "dt_keywords_hat_all.RData")
 
 #######################################################################################
 ## hat == -1 ##########################################################################
@@ -164,7 +165,7 @@ p <- p + theme(axis.text.x=element_text(angle = 45, hjust = 1))
 p
 
 ## save
-save(list.title.hat.test, list.abstract.hat.test, list.raw_job_type.hat.test, file = "../../../data/RData/dt_keywords_hat_test.RData")
+save(list.title.hat.test, list.abstract.hat.test, list.raw_job_type.hat.test, file = "dt_keywords_hat_test.RData")
 
 
 

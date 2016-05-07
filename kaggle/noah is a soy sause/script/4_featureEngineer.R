@@ -9,9 +9,9 @@ require(Matrix)
 require(ggplot2)
 require(slam)
 source("utility.R")
-load("dt_jobs.RData")
-load("dt_keywords_hat_test.RData")
-load("dt_keywords_hat_all.RData")
+# load("dt_jobs.RData")
+# load("dt_keywords_hat_test.RData")
+# load("dt_keywords_hat_all.RData")
 #######################################################################################
 ## rm sparse version - test terms #####################################################
 #######################################################################################
@@ -57,6 +57,8 @@ load("dtm_all.RData")
 load("dtm_test.RData")
 load("dtm_bi_all.RData")
 load("dtm_bi_test.RData")
+# load("dtm_tri_all.RData")
+# load("dtm_tri_test.RData")
 
 MyUseTest <- function(dtm.title.all, dtm.abstract.all, dtm.raw_job_type.all
                       , dtm.title.test, dtm.abstract.test, dtm.raw_job_type.test){
@@ -90,9 +92,13 @@ MyUseTest <- function(dtm.title.all, dtm.abstract.all, dtm.raw_job_type.all
     
     return(list(dtm.title.all.useTest, dtm.abstract.all.useTest, dtm.raw_job_type.all.useTest))
 }
-# col.title.test <- dtm.title.bi.test$dimnames$Terms
-# col.abstract.test <- dtm.abstract.bi.test$dimnames$Terms
-# col.raw_job_type.test <- dtm.raw_job_type.bi.test$dimnames$Terms
+
+ls.dtm.tri.useTest <- MyUseTest(dtm.title.tri.all, dtm.abstract.tri.all, dtm.raw_job_type.tri.all
+                                , dtm.title.tri.test, dtm.abstract.tri.test, dtm.raw_job_type.tri.test)
+dtm.title.tri.useTest <- ls.dtm.tri.useTest[[1]]
+dtm.abstract.tri.useTest <- ls.dtm.tri.useTest[[2]]
+dtm.raw_job_type.tri.useTest <- ls.dtm.tri.useTest[[3]]
+
 
 ls.dtm.bi.useTest <- MyUseTest(dtm.title.bi.all, dtm.abstract.bi.all, dtm.raw_job_type.bi.all
                                , dtm.title.bi.test, dtm.abstract.bi.test, dtm.raw_job_type.bi.test)
@@ -158,6 +164,11 @@ MySm <- function(dtm.title.all.useTest, dtm.abstract.all.useTest, dtm.raw_job_ty
     return(list(sm.title.all.useTest, sm.abstract.all.useTest, sm.raw_job_type.all.useTest))
 }
 
+ls.tri.useTest <- MySm(dtm.title.tri.useTest, dtm.abstract.tri.useTest, dtm.raw_job_type.tri.useTest)
+sm.title.tri.useTest <- ls.tri.useTest[[1]]
+sm.abstract.tri.useTest <- ls.tri.useTest[[2]]
+sm.raw_job_type.tri.useTest <- ls.tri.useTest[[3]]
+
 ls.bi.useTest <- MySm(dtm.title.bi.useTest, dtm.abstract.bi.useTest, dtm.raw_job_type.bi.useTest)
 sm.title.bi.useTest <- ls.bi.useTest[[1]]
 sm.abstract.bi.useTest <- ls.bi.useTest[[2]]
@@ -168,6 +179,9 @@ sm.title.all.useTest <- ls.all.useTest[[1]]
 sm.abstract.all.useTest <- ls.all.useTest[[2]]
 sm.raw_job_type.all.useTest <- ls.all.useTest[[3]]
 
+save(sm.title.tri.useTest, sm.abstract.tri.useTest, sm.raw_job_type.tri.useTest, file = "sm_tri_useTest.RData")
+save(sm.title.bi.useTest, sm.abstract.bi.useTest, sm.raw_job_type.bi.useTest, file = "sm_bi_useTest.RData")
+save(sm.title.all.useTest, sm.abstract.all.useTest, sm.raw_job_type.all.useTest, file = "sm_all_useTest.RData")
 
 ## add salary
 load("dt_jobs.RData")
@@ -205,6 +219,39 @@ rot60_x <- dt.location$rot60_x
 rot60_y <- dt.location$rot60_y
 radial_r <- dt.location$radial_r
 
+# ## add impression
+# load("dt_jobs_users_features.RData")
+# # dt.jobs.users.features
+# mx.jobs.users.impressions <- apply(dt.jobs.users.features[, !c("job_id", "id"), with = F]
+#                                    , 2
+#                                    , range01)
+
+## add meta job seg
+# load("dt_job_seg.RData")
+# pred.seg <- round(dt.job.seg$pred.seg)
+
+## grams
+load("sm_all_useTest.RData")
+load("sm_bi_useTest.RData")
+load("sm_tri_useTest.RData")
+# remove train 0
+sm.title.tri.useTest <- sm.title.tri.useTest[, !col_sums(sm.title.tri.useTest[dt.jobs$hat >= 0, ]) == 0]
+sm.abstract.tri.useTest <- sm.abstract.tri.useTest[, !col_sums(sm.abstract.tri.useTest[dt.jobs$hat >= 0, ]) == 0]
+sm.raw_job_type.tri.useTest <- sm.raw_job_type.tri.useTest[, !col_sums(sm.raw_job_type.tri.useTest[dt.jobs$hat >= 0, ]) == 0]
+
+sm.title.bi.useTest <- sm.title.bi.useTest[, !col_sums(sm.title.bi.useTest[dt.jobs$hat >= 0, ]) == 0]
+sm.abstract.bi.useTest <- sm.abstract.bi.useTest[, !col_sums(sm.abstract.bi.useTest[dt.jobs$hat >= 0, ]) == 0]
+sm.raw_job_type.bi.useTest <- sm.raw_job_type.bi.useTest[, !col_sums(sm.raw_job_type.bi.useTest[dt.jobs$hat >= 0, ]) == 0]
+
+sm.title.all.useTest <- sm.title.all.useTest[, !col_sums(sm.title.all.useTest[dt.jobs$hat >= 0, ]) == 0]
+sm.abstract.all.useTest <- sm.abstract.all.useTest[, !col_sums(sm.abstract.all.useTest[dt.jobs$hat >= 0, ]) == 0]
+sm.raw_job_type.all.useTest <- sm.raw_job_type.all.useTest[, !col_sums(sm.raw_job_type.all.useTest[dt.jobs$hat >= 0, ]) == 0]
+
+## company
+# load("camp.RData")
+# head(comp)
+
+
 sm.all.useTest2 <- cBind(matrix(ifelse(dt.jobs$salary_type == "y", 1, 0), nrow(dt.jobs), 1, dimnames = list(rep(NA, nrow(dt.jobs)), "salary_type_y"))
                          , matrix(ifelse(dt.jobs$salary_type == "h", 1, 0), nrow(dt.jobs), 1, dimnames = list(rep(NA, nrow(dt.jobs)), "salary_type_h"))
                          , matrix(ifelse(dt.jobs$salary_type == "-1", -1, 0), nrow(dt.jobs), 1, dimnames = list(rep(NA, nrow(dt.jobs)), "salary_type__1"))
@@ -225,19 +272,30 @@ sm.all.useTest2 <- cBind(matrix(ifelse(dt.jobs$salary_type == "y", 1, 0), nrow(d
                          , smm.location[[2]]
                          , smm.location[[3]]
                          , smm.location[[4]]
+                         # , mx.jobs.users.impressions
+                         # , pred.seg
                          , sm.title.all.useTest
                          , sm.abstract.all.useTest
                          , sm.title.bi.useTest # bi
                          , sm.abstract.bi.useTest # bi
+                         # , sm.title.tri.useTest # tri
+                         # , sm.abstract.tri.useTest # tri
                          # , sm.titel.abstract.all.useTest # combined by title and abstract
                          # , sm.title.bi.useTest # combined by title and abstract
                          , sm.raw_job_type.all.useTest
                          , sm.raw_job_type.bi.useTest # bi
+                         # , sm.raw_job_type.tri.useTest # tri
 )
 
 dim(sm.all.useTest2)
-# [1] 1439436   80874
-# [1] 1439436 1566679
+# [1] 1439436   80874 1 gram
+# [1] 1439436 2956843 3 gram
+# [1] 1439436 1184400 modified stemming
+# [1] 1439436 1184410 with user.impressions
+# [1] 1439436 4135903 with 3 gram, no user.impression
+# [1] 1439436 1184401 1, 2 grams with pred.seg
+# [1] 1439436 1016939 1 and 2 grams with no train 0 cols
+# [1] 1439436 3302337 1 and 2 and 3 grams with no train 0 cols
 
 # rm(list = setdiff(ls(), "sm.all.useTest2"))
 
